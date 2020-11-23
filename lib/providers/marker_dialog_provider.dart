@@ -1,9 +1,9 @@
 import 'package:flutter/foundation.dart';
 
-class MarkerDialogController with ChangeNotifier {
+class MarkerDialogProvider with ChangeNotifier {
   bool showDialog;
 
-  MarkerDialogController({this.showDialog = false});
+  MarkerDialogProvider({this.showDialog = false});
 
   set setDialog(bool b) {
     this.showDialog = b;

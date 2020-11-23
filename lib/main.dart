@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:my_mapbox/controller/location_controller.dart';
+import 'package:my_mapbox/providers//location_provider.dart';
+import 'package:my_mapbox/providers/search_address_provider.dart';
 import 'package:my_mapbox/view/home_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -8,8 +9,11 @@ void main() {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (_) => LocationController(),
-        )
+          create: (_) => LocationProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => SearchAddressProvider(),
+        ),
       ],
       child: MyApp(),
     ),

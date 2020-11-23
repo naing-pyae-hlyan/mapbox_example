@@ -1,9 +1,9 @@
 import 'package:location/location.dart';
 
 class AppConst {
-  static final fullURL =
+  static final mapUrl =
       'https://api.mapbox.com/styles/v1/naingpyaehlyan/ckhu4ujn71ojn19p6dq9ozm4t/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoibmFpbmdweWFlaGx5YW4iLCJhIjoiY2todTBpb3cyMDFkbjJ5bWxhYnpub3RoeiJ9.Ptipl9UsY0PygJ_5P_PkBw';
-  static const TOKEN =
+  static final mapToken =
       'pk.eyJ1IjoibmFpbmdweWFlaGx5YW4iLCJhIjoiY2todTBpb3cyMDFkbjJ5bWxhYnpub3RoeiJ9.Ptipl9UsY0PygJ_5P_PkBw';
 
   static get getLat async {
