@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_mapbox/providers/dps_data_provider.dart';
 import 'package:my_mapbox/providers/location_provider.dart';
 import 'package:my_mapbox/providers/search_address_provider.dart';
 import 'package:my_mapbox/view/home_screen.dart';
@@ -13,6 +14,9 @@ void main() {
         ),
         ChangeNotifierProvider(
           create: (_) => SearchAddressProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => DpsDataProvider(),
         ),
       ],
       child: MyApp(),

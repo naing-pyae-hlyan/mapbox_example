@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong/latlong.dart';
 import 'package:location/location.dart';
+import 'package:my_mapbox/providers/dps_data_provider.dart';
 import 'package:my_mapbox/providers/marker_dialog_provider.dart';
 import 'package:my_mapbox/providers/location_provider.dart';
 import 'package:my_mapbox/util/app_const.dart';
@@ -25,6 +26,12 @@ class BaseHomePage extends StatelessWidget {
 class HomePage extends StatelessWidget {
   static MapController _mapController = new MapController();
   static LocationProvider _locationProvider;
+  static DpsDataProvider _dpsProvider;
+
+  void _initProvider(BuildContext context) {
+    _locationProvider = Provider.of<LocationProvider>(context, listen: false);
+    _dpsProvider = Provider.of<DpsDataProvider>(context, listen: false);
+  }
 
   void _currentLocation(BuildContext context) async {
     LocationData location = await AppConst.getLocation();
@@ -34,8 +41,9 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    _locationProvider = Provider.of<LocationProvider>(context, listen: false);
+    _initProvider(context);
     _currentLocation(context);
+
     return Scaffold(
       body: _bodyWidget(context),
       floatingActionButton: FloatingActionButton(
@@ -48,6 +56,7 @@ class HomePage extends StatelessWidget {
             double long = double.parse(resp.longitude);
 
             _locationProvider.setLatLng = LatLng(lat, long);
+            _dpsProvider.setDpsData = resp;
             _mapController.move(LatLng(lat, long), 13);
           }),
         ),
@@ -56,7 +65,7 @@ class HomePage extends StatelessWidget {
   }
 
   Widget _bodyWidget(BuildContext context) {
-    final double halfScreen = MediaQuery.of(context).size.width / 2;
+    final double halfScreen = MediaQuery.of(context).size.width / 1.5;
 
     return Consumer<LocationProvider>(
       builder: (context, locationProvider, child) {
@@ -78,9 +87,9 @@ class HomePage extends StatelessWidget {
               markers: [
                 new Marker(
                   width: halfScreen,
-                  height: halfScreen,
+                  height: halfScreen / 1.5,
                   point: locationProvider.getLatLng(),
-                  builder: (_) => _createMarker(context),
+                  builder: (_) => _createMarker(context, halfSize: halfScreen),
                 ),
               ],
             ),
@@ -90,7 +99,7 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget _createMarker(BuildContext context) {
+  Widget _createMarker(BuildContext context, {double halfSize}) {
     return Consumer<MarkerDialogProvider>(
       builder: (context, markerProvider, child) {
         return Stack(
@@ -98,11 +107,25 @@ class HomePage extends StatelessWidget {
           children: [
             Visibility(
               visible: markerProvider.showDialog,
-              child: Container(
-                width: 250,
-                height: 150,
-                color: Colors.white,
-              ),
+              child: _dpsProvider.dpsData == null
+                  ? SizedBox()
+                  : Container(
+                      width: halfSize,
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16),
+                        color: Colors.white,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('${_dpsProvider.dpsData.dPSID}'),
+                          Text('${_dpsProvider.dpsData.wardNEng}'),
+                          Text('${_dpsProvider.dpsData.tspNEng}'),
+                          Text('${_dpsProvider.dpsData.distNEng}'),
+                          Text('${_dpsProvider.dpsData.sRNEng}'),
+                        ],
+                      )),
             ),
             IconButton(
               iconSize: 32,
