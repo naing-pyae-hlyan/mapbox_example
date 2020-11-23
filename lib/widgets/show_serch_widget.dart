@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_mapbox/network/search_address_response.dart';
+import 'package:my_mapbox/models/search_address_response.dart';
 import 'package:my_mapbox/providers/search_address_provider.dart';
 import 'package:my_mapbox/providers/search_provider.dart';
 import 'package:provider/provider.dart';

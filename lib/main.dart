@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_mapbox/providers//location_provider.dart';
+import 'package:my_mapbox/providers/location_provider.dart';
 import 'package:my_mapbox/providers/search_address_provider.dart';
 import 'package:my_mapbox/view/home_screen.dart';
 import 'package:provider/provider.dart';
