@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong/latlong.dart';
-import 'package:location/location.dart';
 import 'package:my_mapbox/providers/dps_data_provider.dart';
 import 'package:my_mapbox/providers/marker_dialog_provider.dart';
 import 'package:my_mapbox/providers/location_provider.dart';
@@ -34,9 +33,9 @@ class HomePage extends StatelessWidget {
   }
 
   void _currentLocation(BuildContext context) async {
-    LocationData location = await AppConst.getLocation();
-
-    _locationProvider.setLatLng = LatLng(location.latitude, location.longitude);
+    final double lat = await AppConst.getLat;
+    final double long = await AppConst.getLong;
+    _locationProvider.setLatLng = LatLng(lat, long);
   }
 
   @override

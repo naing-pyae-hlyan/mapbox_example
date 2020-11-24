@@ -13,12 +13,6 @@ class SearchServices {
   }) async {
     final url =
         ApiRoutes.dpsBaseUrl + '?token=${ApiRoutes.dpsToken}&value=$query';
-    // 'https://dps.ethicaldigit.com/api/?token=aLy1EiehhwJF7SJ10Hb1Vxx7&value=1st%20street&fbclid=IwAR2Mh_7kJFR37DBsQ1LJhIe3Pa-XWL6I9ZbTflnkEG3bDxWKirpgpoOvjwk';
-
-    // final Map<String, String> param = {
-    //   'token': ApiRoutes.dpsToken,
-    //   'value': query,
-    // };
 
     var response;
     try {
@@ -27,7 +21,8 @@ class SearchServices {
         url: url,
       );
     } catch (e) {
-      return ErrorResponseCodeAndMessage(code: null, message: 'No Connection!');
+      myLog(SEARCH_TAG, e.toString());
+      return ErrorResponseCodeAndMessage(code: null, message: '${e.toString()}');
     }
 
     if (response != null) {
@@ -43,10 +38,10 @@ class SearchServices {
 
       if (code == 200) {
         return SearchAddressResponse.fromJson(json.decode(response.body));
-      } else if (code == 401) {
+      } else if (code == 401 || code == 404) {
         return ErrorResponseCodeAndMessage.fromJson(json.decode(response.body));
-      } else if (code == 404){
-        return ErrorResponseCodeAndMessage.fromJson(json.decode(response.body));
+      } else {
+        return ErrorResponseCodeAndMessage(code: null, message: 'Request Failed!');
       }
     }
   }
