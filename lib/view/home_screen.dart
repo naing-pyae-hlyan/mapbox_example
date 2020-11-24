@@ -8,6 +8,7 @@ import 'package:my_mapbox/providers/marker_dialog_provider.dart';
 import 'package:my_mapbox/providers/location_provider.dart';
 import 'package:my_mapbox/util/app_const.dart';
 import 'package:my_mapbox/widgets/address_search.dart';
+import 'package:my_mapbox/widgets/show_marker_data_sheet.dart';
 import 'package:provider/provider.dart';
 
 class BaseHomePage extends StatelessWidget {
@@ -107,7 +108,6 @@ class HomePage extends StatelessWidget {
       builder: (context, markerProvider, child) {
         return Column(
           children: [
-
             IconButton(
               iconSize: 32,
               icon: Icon(
@@ -115,7 +115,10 @@ class HomePage extends StatelessWidget {
                 color: Colors.blue,
               ),
               onPressed: () {
-                markerProvider.setDialog = !markerProvider.showDialog;
+                if (_dpsProvider.dpsData != null) {
+                  showMarkerDataSheet(context, dpsData: _dpsProvider.dpsData);
+                }
+                // markerProvider.setDialog = !markerProvider.showDialog;
               },
             ),
             Visibility(
@@ -123,22 +126,28 @@ class HomePage extends StatelessWidget {
               child: _dpsProvider.dpsData == null
                   ? SizedBox()
                   : Container(
-                  width: halfSize,
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(16),
-                    color: Colors.white,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('${_dpsProvider.dpsData.dPSID}'),
-                      Text('${_dpsProvider.dpsData.wardNEng}'),
-                      Text('${_dpsProvider.dpsData.tspNEng}'),
-                      Text('${_dpsProvider.dpsData.distNEng}'),
-                      Text('${_dpsProvider.dpsData.sRNEng}'),
-                    ],
-                  )),
+                      width: halfSize,
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16),
+                        color: Colors.white,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('${_dpsProvider.dpsData.dPSID}'),
+                          Text('${_dpsProvider.dpsData.hNEng}'),
+                          Text('${_dpsProvider.dpsData.postalCod}'),
+                          Text('${_dpsProvider.dpsData.stNEng}'),
+                          Text('${_dpsProvider.dpsData.wardNEng}'),
+                          Text('${_dpsProvider.dpsData.tspNEng}'),
+                          Text('${_dpsProvider.dpsData.distNEng}'),
+                          Text('${_dpsProvider.dpsData.sRNEng}'),
+                          Text('${_dpsProvider.dpsData.countryN}'),
+                          Text(
+                              '${_dpsProvider.dpsData.latitude} : ${_dpsProvider.dpsData.longitude}'),
+                        ],
+                      )),
             ),
           ],
         );

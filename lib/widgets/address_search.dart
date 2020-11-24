@@ -99,9 +99,19 @@ class AddressSearch extends SearchDelegate<SearchAddressResponse> {
     return ListView.builder(
       itemCount: response.data.length,
       itemBuilder: (context, index) {
+        DPSData dps = response.data[index];
         return ListTile(
           title: Text(
-            response.data[index].stNEng + ' ' + response.data[index].tspNEng,
+            dps.hNEng +
+                ', ' +
+                dps.stNEng +
+                ', ' +
+                dps.wardNEng +
+                ', ' +
+                dps.tspNEng,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 1,
+            softWrap: true,
           ),
           onTap: () async {
             onPressItem(response.data[index]);
