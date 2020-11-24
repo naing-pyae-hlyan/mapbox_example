@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_map/flutter_map.dart';
 import 'package:my_mapbox/providers/dps_data_provider.dart';
 import 'package:my_mapbox/providers/location_provider.dart';
-import 'package:my_mapbox/providers/map_controller_providers.dart';
 import 'package:my_mapbox/providers/search_address_provider.dart';
 import 'package:my_mapbox/view/home_screen.dart';
 import 'package:provider/provider.dart';
@@ -32,7 +30,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Map Box',
+      title: 'DPS Map',
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,

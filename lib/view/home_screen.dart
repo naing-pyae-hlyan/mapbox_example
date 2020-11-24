@@ -4,7 +4,6 @@ import 'package:latlong/latlong.dart';
 import 'package:my_mapbox/network/http_helper.dart';
 import 'package:my_mapbox/providers/dps_data_provider.dart';
 import 'package:my_mapbox/providers/map_controller_providers.dart';
-import 'package:my_mapbox/providers/marker_dialog_provider.dart';
 import 'package:my_mapbox/providers/location_provider.dart';
 import 'package:my_mapbox/util/app_const.dart';
 import 'package:my_mapbox/widgets/address_search.dart';
@@ -16,9 +15,6 @@ class BaseHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(
-          create: (_) => MarkerDialogProvider(showDialog: false),
-        ),
         ChangeNotifierProvider(
           create: (_) =>
               MapControllerProvider(mapController: new MapController()),
@@ -93,61 +89,22 @@ class HomePage extends StatelessWidget {
                   height: halfScreen / 1.5,
                   point: locationProvider.getLatLng,
                   anchorPos: AnchorPos.align(AnchorAlign.bottom),
-                  builder: (_) => _createMarker(context, halfSize: halfScreen),
+                  builder: (_) => IconButton(
+                    iconSize: 32,
+                    icon: Icon(
+                      Icons.location_on,
+                      color: Colors.blue,
+                    ),
+                    onPressed: () {
+                      if (_dpsProvider.dpsData != null) {
+                        showMarkerDataSheet(context,
+                            dpsData: _dpsProvider.dpsData);
+                      }
+                      // markerProvider.setDialog = !markerProvider.showDialog;
+                    },
+                  ),
                 ),
               ],
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  Widget _createMarker(BuildContext context, {double halfSize}) {
-    return Consumer<MarkerDialogProvider>(
-      builder: (context, markerProvider, child) {
-        return Column(
-          children: [
-            IconButton(
-              iconSize: 32,
-              icon: Icon(
-                Icons.location_on,
-                color: Colors.blue,
-              ),
-              onPressed: () {
-                if (_dpsProvider.dpsData != null) {
-                  showMarkerDataSheet(context, dpsData: _dpsProvider.dpsData);
-                }
-                // markerProvider.setDialog = !markerProvider.showDialog;
-              },
-            ),
-            Visibility(
-              visible: markerProvider.showDialog,
-              child: _dpsProvider.dpsData == null
-                  ? SizedBox()
-                  : Container(
-                      width: halfSize,
-                      padding: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(16),
-                        color: Colors.white,
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('${_dpsProvider.dpsData.dPSID}'),
-                          Text('${_dpsProvider.dpsData.hNEng}'),
-                          Text('${_dpsProvider.dpsData.postalCod}'),
-                          Text('${_dpsProvider.dpsData.stNEng}'),
-                          Text('${_dpsProvider.dpsData.wardNEng}'),
-                          Text('${_dpsProvider.dpsData.tspNEng}'),
-                          Text('${_dpsProvider.dpsData.distNEng}'),
-                          Text('${_dpsProvider.dpsData.sRNEng}'),
-                          Text('${_dpsProvider.dpsData.countryN}'),
-                          Text(
-                              '${_dpsProvider.dpsData.latitude} : ${_dpsProvider.dpsData.longitude}'),
-                        ],
-                      )),
             ),
           ],
         );
