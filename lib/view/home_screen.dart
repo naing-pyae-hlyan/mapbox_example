@@ -76,7 +76,7 @@ class HomePage extends StatelessWidget {
           ),
           layers: [
             TileLayerOptions(
-              urlTemplate: AppConst.mapUrl,
+              urlTemplate: AppConst.streetMapUrl,
               additionalOptions: {
                 'accessToken': AppConst.mapToken,
                 'id': 'mapbox.streets',
@@ -85,8 +85,8 @@ class HomePage extends StatelessWidget {
             MarkerLayerOptions(
               markers: [
                 Marker(
-                  width: halfScreen,
-                  height: halfScreen / 1.5,
+                  width: 32,
+                  height: 32,
                   point: locationProvider.getLatLng,
                   anchorPos: AnchorPos.align(AnchorAlign.bottom),
                   builder: (_) => IconButton(

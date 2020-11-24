@@ -1,11 +1,15 @@
 import 'package:location/location.dart';
 
 class AppConst {
-  static final mapUrl =
-      // Street Map
+  // Street Map
+  static final streetMapUrl =
       'https://api.mapbox.com/styles/v1/naingpyaehlyan/ckhvlx3jy0imm19pmp3biaom1/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoibmFpbmdweWFlaGx5YW4iLCJhIjoiY2todTBpb3cyMDFkbjJ5bWxhYnpub3RoeiJ9.Ptipl9UsY0PygJ_5P_PkBw';
 
-  //Basic Map  // 'https://api.mapbox.com/styles/v1/naingpyaehlyan/ckhu4ujn71ojn19p6dq9ozm4t/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoibmFpbmdweWFlaGx5YW4iLCJhIjoiY2todTBpb3cyMDFkbjJ5bWxhYnpub3RoeiJ9.Ptipl9UsY0PygJ_5P_PkBw';
+  //Basic Map
+  static final basicMapUrl =
+      'https://api.mapbox.com/styles/v1/naingpyaehlyan/ckhu4ujn71ojn19p6dq9ozm4t/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoibmFpbmdweWFlaGx5YW4iLCJhIjoiY2todTBpb3cyMDFkbjJ5bWxhYnpub3RoeiJ9.Ptipl9UsY0PygJ_5P_PkBw';
+
+
   static final mapToken =
       'pk.eyJ1IjoibmFpbmdweWFlaGx5YW4iLCJhIjoiY2todTBpb3cyMDFkbjJ5bWxhYnpub3RoeiJ9.Ptipl9UsY0PygJ_5P_PkBw';
 
