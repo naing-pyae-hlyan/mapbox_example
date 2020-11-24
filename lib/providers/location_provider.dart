@@ -4,7 +4,7 @@ import 'package:latlong/latlong.dart';
 class LocationProvider with ChangeNotifier {
   LatLng _latLng;
 
-  LatLng getLatLng() {
+  LatLng get getLatLng {
     if (this._latLng == null) {
       this._latLng = LatLng(16.798759185125473, 96.14939761321457);
     }
