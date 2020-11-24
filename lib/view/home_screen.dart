@@ -29,7 +29,6 @@ class BaseHomePage extends StatelessWidget {
 }
 
 class HomePage extends StatelessWidget {
-
   static MapControllerProvider _mapControllerProvider;
   static LocationProvider _locationProvider;
   static DpsDataProvider _dpsProvider;
@@ -58,7 +57,6 @@ class HomePage extends StatelessWidget {
 
             _locationProvider.setLatLng = LatLng(lat, long);
             _dpsProvider.setDpsData = resp;
-            // _mapController.move(LatLng(lat, long), 13.0);
             _mapControllerProvider.move(LatLng(lat, long), 13.0);
           }),
         ),
@@ -93,6 +91,7 @@ class HomePage extends StatelessWidget {
                   width: halfScreen,
                   height: halfScreen / 1.5,
                   point: locationProvider.getLatLng,
+                  anchorPos: AnchorPos.align(AnchorAlign.bottom),
                   builder: (_) => _createMarker(context, halfSize: halfScreen),
                 ),
               ],
@@ -106,31 +105,9 @@ class HomePage extends StatelessWidget {
   Widget _createMarker(BuildContext context, {double halfSize}) {
     return Consumer<MarkerDialogProvider>(
       builder: (context, markerProvider, child) {
-        return Stack(
-          alignment: Alignment.bottomCenter,
+        return Column(
           children: [
-            Visibility(
-              visible: markerProvider.showDialog,
-              child: _dpsProvider.dpsData == null
-                  ? SizedBox()
-                  : Container(
-                      width: halfSize,
-                      padding: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(16),
-                        color: Colors.white,
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('${_dpsProvider.dpsData.dPSID}'),
-                          Text('${_dpsProvider.dpsData.wardNEng}'),
-                          Text('${_dpsProvider.dpsData.tspNEng}'),
-                          Text('${_dpsProvider.dpsData.distNEng}'),
-                          Text('${_dpsProvider.dpsData.sRNEng}'),
-                        ],
-                      )),
-            ),
+
             IconButton(
               iconSize: 32,
               icon: Icon(
@@ -140,6 +117,28 @@ class HomePage extends StatelessWidget {
               onPressed: () {
                 markerProvider.setDialog = !markerProvider.showDialog;
               },
+            ),
+            Visibility(
+              visible: markerProvider.showDialog,
+              child: _dpsProvider.dpsData == null
+                  ? SizedBox()
+                  : Container(
+                  width: halfSize,
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(16),
+                    color: Colors.white,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('${_dpsProvider.dpsData.dPSID}'),
+                      Text('${_dpsProvider.dpsData.wardNEng}'),
+                      Text('${_dpsProvider.dpsData.tspNEng}'),
+                      Text('${_dpsProvider.dpsData.distNEng}'),
+                      Text('${_dpsProvider.dpsData.sRNEng}'),
+                    ],
+                  )),
             ),
           ],
         );
